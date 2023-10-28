@@ -1,0 +1,104 @@
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "title": "Растительная пища",
+      "description": "Фрукты, овощи, зелень и т.д."
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "title": "Грибы",
+      "description": "Тоже растут из земли,но ещё и из деревьев, из животных, да из чего угодно, грибы же. Не все одинаково полезны."
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "title": "Животная пища",
+      "description": "Мясо - мышечные волокна животных; ливер - печень и другие внутренности"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "title": "Стейк из говядины 1 кг.",
+      "description": "Стейк из отборной мраморной говядины",
+      "image": "",
+      "category": 3,
+      "price": 869,
+      "date_of_create": "2023-10-27",
+      "date_of_change": "2023-10-27"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "title": "Сосиски молочные 330гр.",
+      "description": "Есть вероятность, что там есть мясо, с сухим молоком.",
+      "image": "students/Sausage_1.jpg",
+      "category": 3,
+      "price": 199,
+      "date_of_create": "2023-10-27",
+      "date_of_change": "2023-10-27"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "title": "Маринованные грузди",
+      "description": "Вкусные хрустящие, нигде таких нет",
+      "image": "",
+      "category": 2,
+      "price": 500,
+      "date_of_create": "2023-10-27",
+      "date_of_change": "2023-10-27"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "title": "Шампиньоны",
+      "description": "Кто-то их пинает, а кто-то продаёт:)",
+      "image": "",
+      "category": 2,
+      "price": 199,
+      "date_of_create": "2023-10-27",
+      "date_of_change": "2023-10-27"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "title": "Картофель 1кг.",
+      "description": "Рекомендуется с селёдкой с луком, но это будет уже другая категория",
+      "image": "",
+      "category": 1,
+      "price": 25,
+      "date_of_create": "2023-10-17",
+      "date_of_change": "2023-10-27"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+      "title": "Апельсины 1кг.",
+      "description": "Спелый, сладкий, сочный цитрус",
+      "image": "",
+      "category": 1,
+      "price": 169,
+      "date_of_create": "2023-10-27",
+      "date_of_change": "2023-10-27"
+    }
+  }
+]
