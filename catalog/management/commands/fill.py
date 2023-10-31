@@ -21,4 +21,4 @@ class Command(BaseCommand):
         # Сброс автоинкремента для поля `pk` в таблице Product
         with connection.cursor() as cursor:
             cursor.execute("ALTER SEQUENCE catalog_product_id_seq RESTART WITH 1")
-        # return os.system("python manage.py loaddata catalog.json")
+        # return os.system("python3 manage.py loaddata catalog.json")
