@@ -22,9 +22,9 @@ class Product(models.Model):
     description = models.CharField(max_length=500, verbose_name='Описание')
     image = models.ImageField(upload_to='students/', verbose_name='Изображение', **NULLABLE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
-    price = models.IntegerField(verbose_name='Цена за покупку')
-    date_of_create = models.DateField(verbose_name='Дата создания')
-    date_of_change = models.DateField(verbose_name='Дата последнего изменения')
+    price = models.FloatField(verbose_name='Цена за покупку')
+    date_of_create = models.DateField(auto_now_add=True, verbose_name='Дата создания')
+    date_of_change = models.DateField(auto_now=True, verbose_name='Дата последнего изменения')
 
     def __str__(self):
         return f'{self.title} - {self.description}'
