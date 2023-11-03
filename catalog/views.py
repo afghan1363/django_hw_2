@@ -1,9 +1,16 @@
 from django.shortcuts import render
 
+from catalog.models import Product
+
 
 # Create your views here.
 def index(request):
-    return render(request, 'catalog/index.html')
+    product_list = Product.objects.all()
+    context = {
+        'product_list': product_list,
+        'title': 'Магазин хороших прог'
+    }
+    return render(request, 'catalog/index.html', context)
 
 
 def contacts(request):
@@ -18,5 +25,11 @@ def contacts(request):
     return render(request, 'catalog/contact.html')
 
 
-def new_controller(request):
-    pass
+def product(request, pk):
+    product_item = Product.objects.get(pk=pk)
+    products = Product.objects.filter(id=pk)
+    context = {
+        'product_list': products,
+        'title': f'Описание проги {product_item.title}'
+    }
+    return render(request, 'catalog/product.html', context)

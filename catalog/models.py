@@ -20,16 +20,17 @@ class Category(models.Model):
 class Product(models.Model):
     title = models.CharField(max_length=100, verbose_name='Наименование')
     description = models.CharField(max_length=500, verbose_name='Описание')
-    image = models.ImageField(upload_to='students/', verbose_name='Изображение', **NULLABLE)
+    image = models.ImageField(upload_to='images/', verbose_name='Изображение', **NULLABLE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категория')
     price = models.FloatField(verbose_name='Цена за покупку')
     date_of_create = models.DateField(auto_now_add=True, verbose_name='Дата создания')
     date_of_change = models.DateField(auto_now=True, verbose_name='Дата последнего изменения')
 
     def __str__(self):
-        return f'{self.title} - {self.description}'
+        return f'''{self.title}:
+{self.description}'''
 
     class Meta:
-        verbose_name = 'Продукт'
-        verbose_name_plural = 'Продукты'
-        ordering = ('title',)
+        verbose_name = 'Приложение'
+        verbose_name_plural = 'Приложения'
+        ordering = ('category',)
