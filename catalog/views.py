@@ -22,7 +22,7 @@ def contacts(request):
 Имя: {name},
 Телефон: {phone},
 Сообщение:'{message}'""")
-    return render(request, 'catalog/contact.html')
+    return render(request, 'catalog/contacts.html')
 
 
 def product(request, pk):
