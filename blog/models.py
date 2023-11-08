@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 NULLABLE = {'null': True, 'blank': True}
@@ -21,4 +22,4 @@ class Blog(models.Model):
     class Meta:
         verbose_name = 'Блог'
         verbose_name_plural = 'Блоги'
-        ordering = ('creation_date',)
+        ordering = ('-creation_date',)
