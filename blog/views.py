@@ -41,8 +41,19 @@ class BlogUpdateView(UpdateView):
     model = Blog
     fields = ['title', 'text', 'img_preview', 'is_published']
 
+    def form_valid(self, form):
+        if form.is_valid():
+            new_blog = form.save()
+            new_blog.slug = slugify(new_blog.title)
+            new_blog.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
-        return reverse_lazy('blog:view', args=[self.object.pk])
+        from django.urls import reverse
+        return reverse('blog:view', args=[self.object.slug])
+
+    # def get_success_url(self):
+    #     return reverse_lazy('blog:view', args=[self.object.pk])
 
 
 class BlogDeleteView(DeleteView):
