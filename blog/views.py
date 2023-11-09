@@ -48,12 +48,12 @@ class BlogUpdateView(UpdateView):
             new_blog.save()
         return super().form_valid(form)
 
-    def get_success_url(self):
-        from django.urls import reverse
-        return reverse('blog:view', args=[self.object.slug])
-
     # def get_success_url(self):
-    #     return reverse_lazy('blog:view', args=[self.object.pk])
+    #     from django.urls import reverse
+    #     return reverse('blog:view', args=[self.object.slug])
+
+    def get_success_url(self):
+        return reverse_lazy('blog:view', args=[self.object.slug])
 
 
 class BlogDeleteView(DeleteView):

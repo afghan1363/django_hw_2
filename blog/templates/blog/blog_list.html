@@ -13,7 +13,7 @@
                     <h3 class="mb-0">{{object.title}}</h3>
                     <div class="mb-1 text-body-secondary">{{object.creation_date}}</div>
                     <p class="card-text mb-auto">{{object.text|slice:50}}</p>
-                    <a href="{% url 'blog:view' object.pk %}" class="icon-link gap-1 icon-link-hover stretched-link">
+                    <a href="{% url 'blog:view' object.slug %}" class="icon-link gap-1 icon-link-hover stretched-link">
                         Продолжить чтение
                         <svg class="bi">
                             <use xlink:href="#chevron-right"></use>

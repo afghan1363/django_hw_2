@@ -8,9 +8,9 @@
         <b>Количество просмотров: {{ object.views_count}}</b>
         <hr>
         <p>{{object.text}}</p>
-        <a href="{% url 'blog:update' object.pk %}"
+        <a href="{% url 'blog:update' object.slug %}"
            class="btn btn-outline-primary mb-5">Редактировать статью</a>
-        <a href="{% url 'blog:delete' object.pk %}"
+        <a href="{% url 'blog:delete' object.slug %}"
            class="btn btn-outline-secondary mb-5">Удалить статью</a>
     </article>
     {% endblock %}
