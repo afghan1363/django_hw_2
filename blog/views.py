@@ -20,6 +20,9 @@ class BlogCreateView(CreateView):
 
 class BlogListView(ListView):
     model = Blog
+    extra_context = {
+        'title': 'SkyBlog'
+    }
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset()
@@ -29,6 +32,9 @@ class BlogListView(ListView):
 
 class BlogDetailView(DetailView):
     model = Blog
+    extra_context = {
+        'title': 'SkyBlog'
+    }
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -47,10 +53,6 @@ class BlogUpdateView(UpdateView):
             new_blog.slug = slugify(new_blog.title)
             new_blog.save()
         return super().form_valid(form)
-
-    # def get_success_url(self):
-    #     from django.urls import reverse
-    #     return reverse('blog:view', args=[self.object.slug])
 
     def get_success_url(self):
         return reverse_lazy('blog:view', args=[self.object.slug])

@@ -10,6 +10,7 @@
                 <div class="card-header">
                     <h5 class="my-0 font-weight-normal">{{ object.title }}:</h5>
                     <h5 class="my-0 font-weight-normal">{{ object.description }}</h5>
+                    <h5 class="my-0 font-weight-normal">{{ object.pk }}</h5>
                 </div>
                 <div class="card-body">
                     <img src="{{ object.image|image_files }}"/>
@@ -20,7 +21,11 @@
                         <li>- Получение обновлений</li>
                     </ul>
                 </div>
+                <div class="card-footer">
+                    <a class="btn btn-link" href="{% url 'catalog:update_product' object.pk %}">Редактировать</a>
+                    <a class="btn btn-outline-danger float-right" href="{% url 'catalog:delete_product' object.pk %}">Удалить</a>
+                </div>
             </div>
         </div>
     </div>
-{% endblock %}
+    {% endblock %}
