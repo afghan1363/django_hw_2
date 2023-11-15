@@ -1,1 +1,256 @@
-[{"model": "catalog.category", "pk": 1, "fields": {"title": "Рассылки", "description": "Удобные и эффективные сервисы рассылок"}}, {"model": "catalog.category", "pk": 2, "fields": {"title": "Полезные утилиты", "description": "Утилиты для оптимизации"}}, {"model": "catalog.category", "pk": 3, "fields": {"title": "Веб-приложения", "description": "Отличные Веб-приложения"}}, {"model": "catalog.product", "pk": 1, "fields": {"title": "Trash-Cleaner", "description": "Очищает корзину от файлов", "image": "images/trash.jpg", "category": 2, "price": 100.0, "date_of_create": "2023-10-31", "date_of_change": "2023-11-03"}}, {"model": "catalog.product", "pk": 2, "fields": {"title": "Mr. Filer", "description": "Сортирует по папкам файлы в папке DOWNLOADS", "image": "images/869174_p.webp", "category": 2, "price": 100.0, "date_of_create": "2023-10-31", "date_of_change": "2023-11-03"}}, {"model": "catalog.product", "pk": 3, "fields": {"title": "TempControl", "description": "Контроль температуры процессора, материнской платы и видеочипа", "image": "images/8BF847E8-C291-890F-397ACE432CBC3DE7.jpg", "category": 2, "price": 130.0, "date_of_create": "2023-10-31", "date_of_change": "2023-11-03"}}, {"model": "catalog.product", "pk": 4, "fields": {"title": "Корпоративная соц.сеть", "description": "Многофункциональная корпоративная соцсеть", "image": "images/icq.png", "category": 3, "price": 599.01, "date_of_create": "2023-10-31", "date_of_change": "2023-11-03"}}, {"model": "catalog.product", "pk": 5, "fields": {"title": "Почтовый клиент", "description": "Письма с различных почтовых сервисов в одном почтовом ящике", "image": "images/best-pop3-and-imap-email-providers.png", "category": 3, "price": 299.45, "date_of_create": "2023-10-31", "date_of_change": "2023-11-03"}}, {"model": "catalog.product", "pk": 6, "fields": {"title": "ONдекс-директ", "description": "Автоматическая настройка контекстной рекламы", "image": "images/kontekst.png", "category": 3, "price": 1999.0, "date_of_create": "2023-10-31", "date_of_change": "2023-11-03"}}, {"model": "catalog.product", "pk": 7, "fields": {"title": "Сервис рекламной рассылки", "description": "Реклама - двигатель торговли", "image": "images/reklama_6m1XF2q.jpg", "category": 1, "price": 10000.0, "date_of_create": "2023-10-31", "date_of_change": "2023-11-03"}}, {"model": "catalog.product", "pk": 8, "fields": {"title": "Рассылка счетов за газ", "description": "Газ надо продавать кому-то", "image": "images/2813308.jpeg", "category": 1, "price": 599.0, "date_of_create": "2023-10-31", "date_of_change": "2023-11-03"}}, {"model": "catalog.product", "pk": 9, "fields": {"title": "Рассылка пенсионерской рекламы", "description": "Реклама из радио в стене теперь в интЕрнЕтЕ", "image": "images/radio.jpg", "category": 1, "price": 59.6, "date_of_create": "2023-10-31", "date_of_change": "2023-11-03"}}]
+[
+  {
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+      "title": "Рассылки",
+      "description": "Удобные и эффективные сервисы рассылок"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+      "title": "Полезные утилиты",
+      "description": "Утилиты для оптимизации"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+      "title": "Веб-приложения",
+      "description": "Отличные Веб-приложения"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+      "title": "Trash-Cleaner",
+      "description": "Очищает корзину от файлов",
+      "image": "images/trash.jpg",
+      "category": 2,
+      "price": 100.0,
+      "date_of_create": "2023-10-31",
+      "date_of_change": "2023-11-03"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+      "title": "Mr. Filer",
+      "description": "Сортирует по папкам файлы в папке DOWNLOADS",
+      "image": "images/869174_p.webp",
+      "category": 2,
+      "price": 100.0,
+      "date_of_create": "2023-10-31",
+      "date_of_change": "2023-11-03"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+      "title": "TempControl",
+      "description": "Контроль температуры процессора, материнской платы и видеочипа",
+      "image": "images/8BF847E8-C291-890F-397ACE432CBC3DE7.jpg",
+      "category": 2,
+      "price": 130.0,
+      "date_of_create": "2023-10-31",
+      "date_of_change": "2023-11-03"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+      "title": "Корпоративная соц.сеть",
+      "description": "Многофункциональная корпоративная соцсеть",
+      "image": "images/icq.png",
+      "category": 3,
+      "price": 599.01,
+      "date_of_create": "2023-10-31",
+      "date_of_change": "2023-11-03"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+      "title": "Почтовый клиент",
+      "description": "Письма с различных почтовых сервисов в одном почтовом ящике",
+      "image": "images/best-pop3-and-imap-email-providers.png",
+      "category": 3,
+      "price": 299.45,
+      "date_of_create": "2023-10-31",
+      "date_of_change": "2023-11-03"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+      "title": "ONдекс-директ",
+      "description": "Автоматическая настройка контекстной рекламы",
+      "image": "images/kontekst.png",
+      "category": 3,
+      "price": 1999.0,
+      "date_of_create": "2023-10-31",
+      "date_of_change": "2023-11-03"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 7,
+    "fields": {
+      "title": "Сервис рекламной рассылки",
+      "description": "Реклама - двигатель торговли",
+      "image": "images/reklama_6m1XF2q.jpg",
+      "category": 1,
+      "price": 10000.0,
+      "date_of_create": "2023-10-31",
+      "date_of_change": "2023-11-03"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 8,
+    "fields": {
+      "title": "Рассылка счетов за газ",
+      "description": "Газ надо продавать кому-то",
+      "image": "images/2813308.jpeg",
+      "category": 1,
+      "price": 599.0,
+      "date_of_create": "2023-10-31",
+      "date_of_change": "2023-11-03"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+      "title": "Рассылка скреп",
+      "description": "Реклама из радио в стене теперь в интЕрнЕтЕ",
+      "image": "images/radio.jpg",
+      "category": 1,
+      "price": 59.6,
+      "date_of_create": "2023-10-31",
+      "date_of_change": "2023-11-03"
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": 11,
+    "fields": {
+      "title": "Тестовый продукт",
+      "description": "Это продукт для теста, не тЕста, а тЭста. It works!",
+      "image": "",
+      "category": 2,
+      "price": 12.12,
+      "date_of_create": "2020-01-01",
+      "date_of_change": "2020-01-02"
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 3,
+    "fields": {
+      "product": 4,
+      "version_number": "10.100b",
+      "title": "Матёрая и проверенная",
+      "is_current": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 4,
+    "fields": {
+      "product": 6,
+      "version_number": "1.23",
+      "title": "Voicer",
+      "is_current": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 5,
+    "fields": {
+      "product": 8,
+      "version_number": "2.15",
+      "title": "Ещё больше счёт, ещё больше счетов.",
+      "is_current": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 6,
+    "fields": {
+      "product": 5,
+      "version_number": "2.15",
+      "title": "postSUPERman",
+      "is_current": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 7,
+    "fields": {
+      "product": 11,
+      "version_number": "1.0",
+      "title": "Самая первая",
+      "is_current": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 8,
+    "fields": {
+      "product": 3,
+      "version_number": "15.01",
+      "title": "Она охлаждает",
+      "is_current": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 9,
+    "fields": {
+      "product": 1,
+      "version_number": "2.0",
+      "title": "Мистер Проппер",
+      "is_current": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 10,
+    "fields": {
+      "product": 2,
+      "version_number": "15",
+      "title": "тестовая",
+      "is_current": false
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 11,
+    "fields": {
+      "product": 9,
+      "version_number": "71",
+      "title": "Чем старше, тем лучше",
+      "is_current": true
+    }
+  },
+  {
+    "model": "catalog.version",
+    "pk": 12,
+    "fields": {
+      "product": 7,
+      "version_number": "10",
+      "title": "Тест",
+      "is_current": false
+    }
+  }
+]

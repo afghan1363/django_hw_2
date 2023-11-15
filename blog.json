@@ -1,0 +1,41 @@
+[
+  {
+    "model": "blog.blog",
+    "pk": 2,
+    "fields": {
+      "title": "Блёг",
+      "slug": "blyog",
+      "text": "Это текст блога, много текста, очень много, крутой блог. Я должен сюдя вернуться после редактирования! Должен сгенериться слагггг",
+      "img_preview": "",
+      "creation_date": "2023-11-08",
+      "is_published": true,
+      "views_count": 39
+    }
+  },
+  {
+    "model": "blog.blog",
+    "pk": 4,
+    "fields": {
+      "title": "New post",
+      "slug": "new-post",
+      "text": "We will we will ROCK YOU!!!!! Yeah!!! Редактиться с переходом по слагу",
+      "img_preview": "",
+      "creation_date": "2023-11-08",
+      "is_published": true,
+      "views_count": 23
+    }
+  },
+  {
+    "model": "blog.blog",
+    "pk": 5,
+    "fields": {
+      "title": "Снять с публикации",
+      "slug": "snyat-s-publikatsii",
+      "text": "имлрмиормиоdvd для слага",
+      "img_preview": "",
+      "creation_date": "2023-11-08",
+      "is_published": true,
+      "views_count": 10
+    }
+  }
+]
