@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from catalog.models import Product, Version
 from catalog.forms import ProductForm, VersionForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
@@ -38,18 +39,25 @@ class ProductDetailView(DetailView):
     }
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
+    login_url = "users:login"
 
     # success_url = reverse_lazy('catalog:index')
     def get_success_url(self):
         return reverse_lazy('catalog:product', args=[self.object.pk])
 
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.owner = self.request.user
+        return super().form_valid(form)
 
-class ProductUpdateView(UpdateView):
+
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
+    login_url = "users:login"
 
     # success_url = reverse_lazy('catalog:index')
     def get_success_url(self):
@@ -73,9 +81,10 @@ class ProductUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:index')
+    login_url = "users:login"
 
     def get_context_data(self, **kwargs):
         """Переопределение метода """

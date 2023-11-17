@@ -13,6 +13,8 @@
                     <div class="card-header">
                         <h5 class="my-0 font-weight-normal">{{ object.title }}:</h5>
                         <h5 class="my-0 font-weight-normal">{{ object.description }}</h5>
+                        <hr>
+                        <h5 class="my-0 font-weight-normal">by: {{ object.owner|default:"SkyStore" }}</h5>
                     </div>
                     <div class="card-body">
                         <h6>Версия: {{ object.active_version_number }} {{ object.active_title }}</h6>
