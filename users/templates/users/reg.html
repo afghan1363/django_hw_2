@@ -10,6 +10,7 @@
                     <div class="card-body">
                         {% csrf_token %}
                         {{ form.as_p }}
+                        <h6>Для подтверждения регистрации проверте почту!</h6>
                         <button type="submit" class="btn btn-success">
                             Зарегистрироваться
                         </button>
