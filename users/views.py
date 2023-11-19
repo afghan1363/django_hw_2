@@ -102,6 +102,9 @@ def generate_new_password(request):
 
 
 class GenerateNewPassword(SuccessMessageMixin, View):
+    """
+    Контроллер восстановления генерации пароля, если пользователь забыл свой пароль
+    """
     def get(self, request, uidb64: str, token: str):
         user = self.get_user(uidb64)
         from django.contrib.auth.tokens import default_token_generator
