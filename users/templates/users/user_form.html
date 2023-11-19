@@ -15,8 +15,11 @@
                         </button>
                         <a class="btn btn-outline-warning" href="{% url 'catalog:index' %}">Отмена</a>
                     </div>
+                    <div class="card-footer">
+                        <a href="{% url 'users:new_pass' %}" class="btn btn-danger">Сгенерировать новый пароль</a>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
-{% endblock %}
+    {% endblock %}
