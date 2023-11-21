@@ -30,6 +30,11 @@ class ProductListView(ListView):
 
         return context
 
+    def get_queryset(self, *args, **kwargs):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(is_published=True)
+        return queryset
+
 
 class ProductDetailView(DetailView):
     model = Product

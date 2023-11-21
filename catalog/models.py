@@ -28,6 +28,7 @@ class Product(models.Model):
     date_of_change = models.DateField(verbose_name='Дата последнего изменения', auto_now_add=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE,
                               verbose_name='Владелец продукта')
+    is_published = models.BooleanField(default=False, verbose_name='Продается')
 
     def __str__(self):
         return f'''{self.title}:
