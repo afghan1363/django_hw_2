@@ -9,7 +9,7 @@ class StyleFormMixin:
         for field_name, field in self.fields.items():
             if field_name != 'is_current' and field_name != 'is_published':
                 field.widget.attrs['class'] = 'form-control'
-            #field.widget.attrs['class'] = 'form-control'
+            # field.widget.attrs['class'] = 'form-control'
 
 
 class ProductForm(StyleFormMixin, forms.ModelForm):
@@ -18,7 +18,8 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     class Meta:
         model = Product
-        exclude = ('owner',)
+       # exclude = ('owner',)
+        fields = '__all__'
 
     def clean_title(self):
         cleaned_data = self.cleaned_data['title']
@@ -37,8 +38,13 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
             return cleaned_data
 
 
-class VersionForm(StyleFormMixin, forms.ModelForm):
+class ModeratorProductForm(ProductForm):
+    class Meta:
+        model = Product
+        fields = ('description', 'category', 'is_published')
 
+
+class VersionForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Version
         fields = '__all__'

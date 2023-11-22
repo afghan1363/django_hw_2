@@ -23,7 +23,9 @@
                 </div>
                 <div class="card-footer">
                     <a class="btn btn-link" href="{% url 'catalog:update_product' object.pk %}">Редактировать</a>
-                    <a class="btn btn-outline-danger float-right" href="{% url 'catalog:delete_product' object.pk %}">Удалить</a>
+                    {% if perms.catalog.delete_product %}
+                        <a class="btn btn-outline-danger float-right" href="{% url 'catalog:delete_product' object.pk %}">Удалить</a>
+                    {% endif %}
                 </div>
             </div>
         </div>

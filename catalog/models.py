@@ -38,6 +38,12 @@ class Product(models.Model):
         verbose_name = 'Приложение'
         verbose_name_plural = 'Приложения'
         ordering = ('category',)
+        permissions = [
+            (
+                'set_published',
+                'Can published for sale'
+            )
+        ]
 
 
 class Version(models.Model):

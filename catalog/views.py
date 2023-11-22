@@ -3,12 +3,13 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from catalog.models import Product, Version
-from catalog.forms import ProductForm, VersionForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from catalog.forms import ProductForm, VersionForm, ModeratorProductForm
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import Http404
 
 
 # Create your views here.
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'catalog/index.html'
     extra_context = {
@@ -32,11 +33,18 @@ class ProductListView(ListView):
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset()
-        queryset = queryset.filter(is_published=True)
+        # queryset = queryset.filter(owner_id=self.kwargs.get('pk'), )
+        if not self.request.user.is_staff:
+            queryset = queryset.filter(owner=self.request.user)
+        # queryset = queryset.filter(owner=self.request.user)
+        # elif self.object.owner == self.request.user:
+        #     queryset = queryset.filter(owner=self.request.user) + queryset.filter(is_published=True)
+        # else:
+        #     queryset = queryset
         return queryset
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'catalog/product.html'
     extra_context = {
@@ -44,10 +52,11 @@ class ProductDetailView(DetailView):
     }
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     login_url = "users:login"
+    permission_required = 'catalog.add_product'
 
     # success_url = reverse_lazy('catalog:index')
     def get_success_url(self):
@@ -61,12 +70,29 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
-    form_class = ProductForm
+    form_class = ModeratorProductForm
     login_url = "users:login"
+   # permission_required = 'catalog.change_product'
 
     # success_url = reverse_lazy('catalog:index')
     def get_success_url(self):
         return reverse_lazy('catalog:product', args=[self.object.pk])
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if (self.request.user != self.object.owner and not self.request.user.is_staff
+                and not self.request.user.is_superuser and self.request.user.has_perm('catalog.set_published')):
+            raise Http404
+        else:
+            return self.object
+
+    def get_form_class(self):
+        """Return the form class to use."""
+        if not self.request.user.is_staff:
+            self.form_class = ProductForm
+        else:
+            self.form_class = ModeratorProductForm
+        return self.form_class
 
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
@@ -86,10 +112,11 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class ProductDeleteView(LoginRequiredMixin, DeleteView):
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Product
     success_url = reverse_lazy('catalog:index')
     login_url = "users:login"
+    permission_required = 'catalog.delete_product'
 
     def get_context_data(self, **kwargs):
         """Переопределение метода """
