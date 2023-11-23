@@ -1,0 +1,35 @@
+{% extends 'catalog/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="col-12 mb-5">
+        {% if perms.catalog.add_product %}
+        <a class="btn btn-outline-primary mb-5" href="{% url 'catalog:create_product' %}">Добавить продукт</a>
+        {% endif %}
+        <div class="row text-center">
+            {% for object in product_list %}
+            <div class="col-3">
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h5 class="my-0 font-weight-normal">{{ object.title }}:</h5>
+                        <h5 class="my-0 font-weight-normal">{{ object.description }}</h5>
+                        <hr>
+                        <h5 class="my-0 font-weight-normal">by: {{ object.owner|default:"SkyStore" }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <h6>Версия: {{ object.active_version_number }} {{ object.active_title }}</h6>
+                        <ul class="list-unstyled mt-3 mb-4 text-start m-3">
+                            <li>- Подписка на 1 год</li>
+                            <li>- Поддержка</li>
+                            <li>- Получение обновлений</li>
+                        </ul>
+                        <h2 class="card-title pricing-card-title">Цена: {{ object.price }}</h2>
+                        <a class="btn btn-primary" href="{% url 'catalog:product' object.pk %}" role="button">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

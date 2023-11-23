@@ -2,24 +2,31 @@ from django.forms import inlineformset_factory
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from catalog.models import Product, Version
+from catalog.models import Product, Version, Category
 from catalog.forms import ProductForm, VersionForm, ModeratorProductForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.http import Http404
 
 
 # Create your views here.
-class ProductListView(LoginRequiredMixin, ListView):
-    model = Product
-    template_name = 'catalog/index.html'
+class CategoryListView(LoginRequiredMixin, ListView):
+    model = Category
+    template_name = 'catalog/main_list.html'
     extra_context = {
         'title': 'SkyStore - Магазин и Блог, Блогазин, Магалог'
     }
 
+
+class ProductListView(LoginRequiredMixin, ListView):
+    model = Product
+    template_name = 'catalog/product_list.html'
+
     def get_context_data(self, **kwargs):
 
         context = super().get_context_data(**kwargs)
-
+        category_item = Category.objects.get(pk=self.kwargs.get('pk'))
+        context['category_pk'] = category_item.pk
+        context['title'] = f'''Все проги категории: {category_item.title}'''
         for product in context['object_list']:
             active_version = product.version_set.filter(is_current=True).first()
             if active_version:
@@ -33,14 +40,9 @@ class ProductListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset()
-        # queryset = queryset.filter(owner_id=self.kwargs.get('pk'), )
-        if not self.request.user.is_staff:
+        queryset = queryset.filter(category_id=self.kwargs.get('pk'), )
+        if not self.request.user.is_staff or not self.request.user.is_superuser:
             queryset = queryset.filter(owner=self.request.user)
-        # queryset = queryset.filter(owner=self.request.user)
-        # elif self.object.owner == self.request.user:
-        #     queryset = queryset.filter(owner=self.request.user) + queryset.filter(is_published=True)
-        # else:
-        #     queryset = queryset
         return queryset
 
 
@@ -72,6 +74,7 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
     form_class = ProductForm
     login_url = "users:login"
+
     # permission_required = ('catalog.change_product', 'set_is_published', 'set_description', 'set_category',)
 
     # success_url = reverse_lazy('catalog:index')
@@ -88,7 +91,8 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def get_form_class(self):
         """Return the form class to use."""
-        if not self.request.user.is_staff or self.request.user.is_superuser or not self.request.user.groups.filter(name='moderators'):
+        if not self.request.user.is_staff or self.request.user.is_superuser or not self.request.user.groups.filter(
+                name='moderators'):
             self.form_class = ProductForm
         else:
             self.form_class = ModeratorProductForm
@@ -137,9 +141,12 @@ class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Product
-    success_url = reverse_lazy('catalog:index')
+    # success_url = reverse_lazy('catalog:product_list')
     login_url = "users:login"
     permission_required = 'catalog.delete_product'
+
+    def get_success_url(self):
+        return reverse_lazy('catalog:product_list', args=[self.object.category.pk])
 
     def get_context_data(self, **kwargs):
         """Переопределение метода """
