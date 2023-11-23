@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            {% if user == object.owner %}
+            {% if user == object.owner or user.is_superuser %}
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">Добавление версии приложения</div>

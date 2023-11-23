@@ -40,8 +40,16 @@ class Product(models.Model):
         ordering = ('category',)
         permissions = [
             (
-                'set_published',
-                'Can published for sale'
+                'set_is_published',
+                'Can public for sale'
+            ),
+            (
+                'set_description',
+                'Can edit description'
+            ),
+            (
+                'set_category',
+                'Can change category'
             )
         ]
 
@@ -60,7 +68,6 @@ class Version(models.Model):
         verbose_name = 'Версия'
         verbose_name_plural = 'Версии'
         ordering = ('product', 'title',)
-
 
 # @receiver(post_save, sender=Version)
 # def set_active_version(sender, instance, **kwargs):

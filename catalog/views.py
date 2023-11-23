@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from catalog.models import Product, Version
 from catalog.forms import ProductForm, VersionForm, ModeratorProductForm
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.http import Http404
 
 
@@ -68,27 +68,27 @@ class ProductCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
         return super().form_valid(form)
 
 
-class ProductUpdateView(LoginRequiredMixin, UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Product
-    form_class = ModeratorProductForm
+    form_class = ProductForm
     login_url = "users:login"
-   # permission_required = 'catalog.change_product'
+    # permission_required = ('catalog.change_product', 'set_is_published', 'set_description', 'set_category',)
 
     # success_url = reverse_lazy('catalog:index')
     def get_success_url(self):
         return reverse_lazy('catalog:product', args=[self.object.pk])
 
-    def get_object(self, queryset=None):
-        self.object = super().get_object(queryset)
-        if (self.request.user != self.object.owner and not self.request.user.is_staff
-                and not self.request.user.is_superuser and self.request.user.has_perm('catalog.set_published')):
-            raise Http404
-        else:
-            return self.object
+    # def get_object(self, queryset=None):
+    #     self.object = super().get_object(queryset)
+    #     if (self.request.user != self.object.owner and not self.request.user.is_staff
+    #             and not self.request.user.is_superuser and self.request.user.has_perm('catalog.set_published')):
+    #         raise Http404
+    #     else:
+    #         return self.object
 
     def get_form_class(self):
         """Return the form class to use."""
-        if not self.request.user.is_staff:
+        if not self.request.user.is_staff or self.request.user.is_superuser or not self.request.user.groups.filter(name='moderators'):
             self.form_class = ProductForm
         else:
             self.form_class = ModeratorProductForm
@@ -110,6 +110,29 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
             formset.instance = self.object
             formset.save()
         return super().form_valid(form)
+
+    def test_func(self):
+        _user = self.request.user
+        _instance: Product = self.get_object()
+        custom_perms: tuple = (
+            'catalog.set_is_published',
+            'catalog.set_category',
+            'catalog.set_description',
+        )
+        print(_user.groups.all())
+        print(_user.is_superuser)
+        if _user == _instance.owner:
+            print('owner')
+            return True
+        elif _user.is_superuser:
+            print('superuser')
+            return True
+        elif _user.groups.filter(name='moderators') and _user.has_perms(custom_perms):
+            print('moderator')
+            return True
+        else:
+            print('no permissions')
+            return self.handle_no_permission()
 
 
 class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
