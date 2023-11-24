@@ -7,6 +7,7 @@ from catalog.forms import ProductForm, VersionForm, ModeratorProductForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.conf import settings
 from django.core.cache import cache
+from catalog.services import get_cache_category
 
 
 # Create your views here.
@@ -19,15 +20,7 @@ class CategoryListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        if settings.CACHE_ENABLED:
-            key = 'category_list'
-            category_list = cache.get(key)
-            if category_list is None:
-                category_list = Category.objects.all()
-                cache.set(key, category_list)
-        else:
-            category_list = Category.objects.all()
-        context_data['category_list'] = category_list
+        context_data['category_list'] = get_cache_category()
         return context_data
 
 
