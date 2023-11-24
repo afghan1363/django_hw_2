@@ -112,6 +112,8 @@ CACHES = {
     }
 }
 
+CACHE_ENABLED = True
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 

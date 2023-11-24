@@ -5,7 +5,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from catalog.models import Product, Version, Category
 from catalog.forms import ProductForm, VersionForm, ModeratorProductForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from django.http import Http404
+from django.conf import settings
+from django.core.cache import cache
 
 
 # Create your views here.
@@ -15,6 +16,19 @@ class CategoryListView(LoginRequiredMixin, ListView):
     extra_context = {
         'title': 'SkyStore - Магазин и Блог, Блогазин, Магалог'
     }
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        if settings.CACHE_ENABLED:
+            key = 'category_list'
+            category_list = cache.get(key)
+            if category_list is None:
+                category_list = Category.objects.all()
+                cache.set(key, category_list)
+        else:
+            category_list = Category.objects.all()
+        context_data['category_list'] = category_list
+        return context_data
 
 
 class ProductListView(LoginRequiredMixin, ListView):
